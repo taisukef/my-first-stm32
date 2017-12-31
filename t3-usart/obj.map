@@ -10,6 +10,10 @@ Discarded input sections
  .text          0x0000000000000000        0x0 main.o
  .data          0x0000000000000000        0x0 main.o
  .bss           0x0000000000000000        0x0 main.o
+ .text.changeClockTo48MHzIRC
+                0x0000000000000000       0x50 main.o
+ .text.changeClockTo48MHzEx
+                0x0000000000000000       0x54 main.o
  .data          0x0000000000000000        0x0 /Users/fukuno/bin/gcc-arm-none-eabi-6-2017-q1-update/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/libgcc.a(_divsi3.o)
  .bss           0x0000000000000000        0x0 /Users/fukuno/bin/gcc-arm-none-eabi-6-2017-q1-update/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/libgcc.a(_divsi3.o)
  .data          0x0000000000000000        0x0 /Users/fukuno/bin/gcc-arm-none-eabi-6-2017-q1-update/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/libgcc.a(_dvmd_tls.o)
@@ -32,7 +36,7 @@ END GROUP
                 0x0000000008008000                __top_FlashLoc = 0x8008000
                 0x0000000020001000                __top_RamLoc = 0x20001000
 
-.text           0x0000000008000000      0x458
+.text           0x0000000008000000      0x494
  FILL mask 0xff
                 0x0000000008000000                __vectors_start__ = ABSOLUTE (.)
  *(.isr_vector)
@@ -41,7 +45,7 @@ END GROUP
                 0x00000000080000c0                . = ALIGN (0x4)
                 0x00000000080000c0                __section_table_start = .
                 0x00000000080000c0                __data_section_table = .
-                0x00000000080000c0        0x4 LONG 0x8000458 LOADADDR (.data)
+                0x00000000080000c0        0x4 LONG 0x8000494 LOADADDR (.data)
                 0x00000000080000c4        0x4 LONG 0x0 SIZEOF (.data)
  *(.after_vectors*)
  .after_vectors
@@ -55,51 +59,51 @@ END GROUP
  *(.text*)
  *fill*         0x00000000080000ca        0x2 ff
  .text.changeClockTo48MHz
-                0x00000000080000cc       0x50 main.o
+                0x00000000080000cc       0x7c main.o
                 0x00000000080000cc                changeClockTo48MHz
- .text.putc     0x000000000800011c       0x14 main.o
-                0x000000000800011c                putc
- .text.putn     0x0000000008000130       0x3c main.o
-                0x0000000008000130                putn
+ .text.putc     0x0000000008000148       0x14 main.o
+                0x0000000008000148                putc
+ .text.putn     0x000000000800015c       0x3c main.o
+                0x000000000800015c                putn
  .text.Reset_Handler
-                0x000000000800016c      0x114 main.o
-                0x000000000800016c                Reset_Handler
- .text          0x0000000008000280      0x1d4 /Users/fukuno/bin/gcc-arm-none-eabi-6-2017-q1-update/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/libgcc.a(_divsi3.o)
-                0x0000000008000280                __aeabi_idiv
-                0x0000000008000280                __divsi3
-                0x000000000800044c                __aeabi_idivmod
- .text          0x0000000008000454        0x4 /Users/fukuno/bin/gcc-arm-none-eabi-6-2017-q1-update/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/libgcc.a(_dvmd_tls.o)
-                0x0000000008000454                __aeabi_ldiv0
-                0x0000000008000454                __aeabi_idiv0
+                0x0000000008000198      0x124 main.o
+                0x0000000008000198                Reset_Handler
+ .text          0x00000000080002bc      0x1d4 /Users/fukuno/bin/gcc-arm-none-eabi-6-2017-q1-update/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/libgcc.a(_divsi3.o)
+                0x00000000080002bc                __aeabi_idiv
+                0x00000000080002bc                __divsi3
+                0x0000000008000488                __aeabi_idivmod
+ .text          0x0000000008000490        0x4 /Users/fukuno/bin/gcc-arm-none-eabi-6-2017-q1-update/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/libgcc.a(_dvmd_tls.o)
+                0x0000000008000490                __aeabi_ldiv0
+                0x0000000008000490                __aeabi_idiv0
  *(.rodata .rodata.*)
-                0x0000000008000458                . = ALIGN (0x4)
+                0x0000000008000494                . = ALIGN (0x4)
 
-.glue_7         0x0000000008000458        0x0
- .glue_7        0x0000000008000458        0x0 linker stubs
+.glue_7         0x0000000008000494        0x0
+ .glue_7        0x0000000008000494        0x0 linker stubs
 
-.glue_7t        0x0000000008000458        0x0
- .glue_7t       0x0000000008000458        0x0 linker stubs
+.glue_7t        0x0000000008000494        0x0
+ .glue_7t       0x0000000008000494        0x0 linker stubs
 
-.vfp11_veneer   0x0000000008000458        0x0
- .vfp11_veneer  0x0000000008000458        0x0 linker stubs
+.vfp11_veneer   0x0000000008000494        0x0
+ .vfp11_veneer  0x0000000008000494        0x0 linker stubs
 
-.v4_bx          0x0000000008000458        0x0
- .v4_bx         0x0000000008000458        0x0 linker stubs
+.v4_bx          0x0000000008000494        0x0
+ .v4_bx         0x0000000008000494        0x0 linker stubs
 
-.iplt           0x0000000008000458        0x0
- .iplt          0x0000000008000458        0x0 main.o
+.iplt           0x0000000008000494        0x0
+ .iplt          0x0000000008000494        0x0 main.o
 
-.rel.dyn        0x0000000008000458        0x0
- .rel.iplt      0x0000000008000458        0x0 main.o
+.rel.dyn        0x0000000008000494        0x0
+ .rel.iplt      0x0000000008000494        0x0 main.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x0000000008000458                __exidx_start = .
+                0x0000000008000494                __exidx_start = .
 
 .ARM.exidx
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x0000000008000458                __exidx_end = .
-                0x0000000008000458                _etext = .
+                0x0000000008000494                __exidx_end = .
+                0x0000000008000494                _etext = .
 
 .uninit_RESERVED
                 0x0000000020000000        0x0
@@ -107,7 +111,7 @@ END GROUP
                 0x0000000020000000                . = ALIGN (0x4)
                 0x0000000020000000                _end_uninit_RESERVED = .
 
-.data           0x0000000020000000        0x0 load address 0x0000000008000458
+.data           0x0000000020000000        0x0 load address 0x0000000008000494
  FILL mask 0xff
                 0x0000000020000000                _data = .
  *(vtable)
@@ -116,10 +120,10 @@ END GROUP
                 0x0000000020000000                . = ALIGN (0x4)
                 0x0000000020000000                _edata = .
 
-.igot.plt       0x0000000020000000        0x0 load address 0x0000000008000458
+.igot.plt       0x0000000020000000        0x0 load address 0x0000000008000494
  .igot.plt      0x0000000020000000        0x0 main.o
 
-.bss            0x0000000020000000        0x0 load address 0x0000000008000458
+.bss            0x0000000020000000        0x0 load address 0x0000000008000494
                 0x0000000020000000                _bss = .
  *(.bss*)
  *(COMMON)
@@ -127,7 +131,7 @@ END GROUP
                 0x0000000020000000                _ebss = .
                 [!provide]                        PROVIDE (end, .)
 
-.noinit         0x0000000020000000        0x0 load address 0x0000000008000458
+.noinit         0x0000000020000000        0x0 load address 0x0000000008000494
                 0x0000000020000000                _noinit = .
  *(.noinit*)
                 0x0000000020000000                . = ALIGN (0x4)

@@ -36,7 +36,7 @@ all: $(NAME).mot $(NAME).axf
 
 build: $(NAME).axf
 
-%.o: $(C_SRCS) $(C_HEADERS)
+$(OBJS): $(C_SRCS) $(C_HEADERS)
 	$(GCC) -std=gnu99 -Os -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -mcpu=cortex-m0 -mthumb -o "$@" "$<"
 
 $(NAME).axf: $(OBJS)

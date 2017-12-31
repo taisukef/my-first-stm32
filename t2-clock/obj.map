@@ -4,6 +4,10 @@ Discarded input sections
  .text          0x0000000000000000        0x0 main.o
  .data          0x0000000000000000        0x0 main.o
  .bss           0x0000000000000000        0x0 main.o
+ .text.changeClockTo48MHzIRC
+                0x0000000000000000       0x50 main.o
+ .text.changeClockTo48MHzEx
+                0x0000000000000000       0x64 main.o
 
 Memory Configuration
 
@@ -22,7 +26,7 @@ END GROUP
                 0x0000000008008000                __top_FlashLoc = 0x8008000
                 0x0000000020001000                __top_RamLoc = 0x20001000
 
-.text           0x0000000008000000      0x1a4
+.text           0x0000000008000000      0x1d0
  FILL mask 0xff
                 0x0000000008000000                __vectors_start__ = ABSOLUTE (.)
  *(.isr_vector)
@@ -31,7 +35,7 @@ END GROUP
                 0x00000000080000c0                . = ALIGN (0x4)
                 0x00000000080000c0                __section_table_start = .
                 0x00000000080000c0                __data_section_table = .
-                0x00000000080000c0        0x4 LONG 0x80001a4 LOADADDR (.data)
+                0x00000000080000c0        0x4 LONG 0x80001d0 LOADADDR (.data)
                 0x00000000080000c4        0x4 LONG 0x0 SIZEOF (.data)
  *(.after_vectors*)
  .after_vectors
@@ -45,40 +49,40 @@ END GROUP
  *(.text*)
  *fill*         0x00000000080000ca        0x2 ff
  .text.changeClockTo48MHz
-                0x00000000080000cc       0x50 main.o
+                0x00000000080000cc       0x7c main.o
                 0x00000000080000cc                changeClockTo48MHz
  .text.Reset_Handler
-                0x000000000800011c       0x88 main.o
-                0x000000000800011c                Reset_Handler
+                0x0000000008000148       0x88 main.o
+                0x0000000008000148                Reset_Handler
  *(.rodata .rodata.*)
-                0x00000000080001a4                . = ALIGN (0x4)
+                0x00000000080001d0                . = ALIGN (0x4)
 
-.glue_7         0x00000000080001a4        0x0
- .glue_7        0x00000000080001a4        0x0 linker stubs
+.glue_7         0x00000000080001d0        0x0
+ .glue_7        0x00000000080001d0        0x0 linker stubs
 
-.glue_7t        0x00000000080001a4        0x0
- .glue_7t       0x00000000080001a4        0x0 linker stubs
+.glue_7t        0x00000000080001d0        0x0
+ .glue_7t       0x00000000080001d0        0x0 linker stubs
 
-.vfp11_veneer   0x00000000080001a4        0x0
- .vfp11_veneer  0x00000000080001a4        0x0 linker stubs
+.vfp11_veneer   0x00000000080001d0        0x0
+ .vfp11_veneer  0x00000000080001d0        0x0 linker stubs
 
-.v4_bx          0x00000000080001a4        0x0
- .v4_bx         0x00000000080001a4        0x0 linker stubs
+.v4_bx          0x00000000080001d0        0x0
+ .v4_bx         0x00000000080001d0        0x0 linker stubs
 
-.iplt           0x00000000080001a4        0x0
- .iplt          0x00000000080001a4        0x0 main.o
+.iplt           0x00000000080001d0        0x0
+ .iplt          0x00000000080001d0        0x0 main.o
 
-.rel.dyn        0x00000000080001a4        0x0
- .rel.iplt      0x00000000080001a4        0x0 main.o
+.rel.dyn        0x00000000080001d0        0x0
+ .rel.iplt      0x00000000080001d0        0x0 main.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x00000000080001a4                __exidx_start = .
+                0x00000000080001d0                __exidx_start = .
 
 .ARM.exidx
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x00000000080001a4                __exidx_end = .
-                0x00000000080001a4                _etext = .
+                0x00000000080001d0                __exidx_end = .
+                0x00000000080001d0                _etext = .
 
 .uninit_RESERVED
                 0x0000000020000000        0x0
@@ -86,7 +90,7 @@ END GROUP
                 0x0000000020000000                . = ALIGN (0x4)
                 0x0000000020000000                _end_uninit_RESERVED = .
 
-.data           0x0000000020000000        0x0 load address 0x00000000080001a4
+.data           0x0000000020000000        0x0 load address 0x00000000080001d0
  FILL mask 0xff
                 0x0000000020000000                _data = .
  *(vtable)
@@ -95,10 +99,10 @@ END GROUP
                 0x0000000020000000                . = ALIGN (0x4)
                 0x0000000020000000                _edata = .
 
-.igot.plt       0x0000000020000000        0x0 load address 0x00000000080001a4
+.igot.plt       0x0000000020000000        0x0 load address 0x00000000080001d0
  .igot.plt      0x0000000020000000        0x0 main.o
 
-.bss            0x0000000020000000        0x0 load address 0x00000000080001a4
+.bss            0x0000000020000000        0x0 load address 0x00000000080001d0
                 0x0000000020000000                _bss = .
  *(.bss*)
  *(COMMON)
@@ -106,7 +110,7 @@ END GROUP
                 0x0000000020000000                _ebss = .
                 [!provide]                        PROVIDE (end, .)
 
-.noinit         0x0000000020000000        0x0 load address 0x00000000080001a4
+.noinit         0x0000000020000000        0x0 load address 0x00000000080001d0
                 0x0000000020000000                _noinit = .
  *(.noinit*)
                 0x0000000020000000                . = ALIGN (0x4)

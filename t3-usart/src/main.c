@@ -13,13 +13,47 @@ static inline void c_init() {
 	memcopy((uint8*)SRAM_LOC, (uint8*)ad[0], ad[1]);
 }
 
-void changeClockTo48MHz() {
+void changeClockTo48MHzIRC() {
 	// 48MHz = 8MHz * 6(PLLMUL)
 	FLASH->ACR |= 0b10001; // 1<<4:enable prefetch, 1 wait state
-	RCC->CFGR = (RCC->CFGR & ~(0b1111 << 18)) | (4 << 18); // PLLMUL6
+	RCC->CFGR = (RCC->CFGR & ~(0b1111111 << 15)) | ((1 << 15) | ((6 - 2) << 18)); // PLL=HSI/PREDIV, PLLMUL6
 	RCC->CR |= 1 << 24; // PLLON
 	while (RCC->CR & (1 << 25));
-	RCC->CFGR |= 2; // PLL
+	RCC->CFGR |= 2; // SW = PLL
+	while ((RCC->CFGR & 12) != 8);
+}
+
+void changeClockTo48MHzEx() {
+	// 48MHz = external 12MHz x 4
+	RCC->CR |= 1 << 16; // HSEON
+	while (!(RCC->CR & (1 << 17))); // wait HSERDY
+	
+	RCC->CFGR = (RCC->CFGR & ~(0b1111111 << 15)) | ((2 << 15) | ((4 - 2) << 18)); // PLL=HSE/PREDIV, PLLMUL4
+	RCC->CR |= 1 << 24; // PLLON
+	while (RCC->CR & (1 << 25));
+	RCC->CFGR |= 2; // SW = PLL
+	while ((RCC->CFGR & 12) != 8);
+}
+
+void changeClockTo48MHz() { // auto
+	// 48MHz = external 12MHz x 4
+	FLASH->ACR |= 0b10001; // 1<<4:enable prefetch, 1 wait state
+	
+	RCC->CR |= 1 << 16; // HSEON
+	int timeout = 10000;
+	while (!(RCC->CR & (1 << 17))) { // wait HSERDY
+		timeout--;
+		if (!timeout)
+			break;
+	}
+	if (!timeout) { // IRC
+		RCC->CFGR = (RCC->CFGR & ~(0b1111111 << 15)) | ((1 << 15) | ((6 - 2) << 18)); // PLL=HSI/PREDIV, PLLMUL6
+	} else {
+		RCC->CFGR = (RCC->CFGR & ~(0b1111111 << 15)) | ((2 << 15) | ((4 - 2) << 18)); // PLL=HSE/PREDIV, PLLMUL4
+	}
+	RCC->CR |= 1 << 24; // PLLON
+	while (RCC->CR & (1 << 25));
+	RCC->CFGR |= 2; // SW = PLL
 	while ((RCC->CFGR & 12) != 8);
 }
 
@@ -58,17 +92,16 @@ void Reset_Handler(void) {
 	GPIOA->AFRH |= (1 << (4 * (9 - 8))) | (1 << (4 * (10 - 8))); // PA9 and PA10 as AF1 == USART
 	GPIOA->OSPEEDR |= 3 << (2 * 9); // PA9 as 50Mhz
 	GPIOA->MODER |= (2 << (2 * 9)) | (2 << (2 * 10)); // PA9, PA10 as alternatefunction
-//	USART1->BRR = 48000000 / (2 * 115200); // 48MHz, 115200bps
-//	USART1->BRR = 48000000 / (2 * 9600); // 48MHz, 9600bps
-//	USART1->BRR = (8000000 / (8 * 9600)) << 4; // 8MHz, 9600bps
-	USART1->BRR = 196; // 197だったり、48MHz, 115200bps 理論値:208 = 48000000/(2*115200) 5%ずれ - 内部RC発振回路は最大±4%, ?? xtalがないから??
+	USART1->BRR = 48000000 / 115200; // 48MHz, 115200bps
+//	USART1->BRR = 48000000 / 9600; // 48MHz, 9600bps
 	
 	int autoboad = 1;
 	if (autoboad) {
 		USART1->CR2 |= USART_CR2_ABREN; // auto boad mode ... ok!
+		// 外部クロックの場合 416と理論値通り
+		// 内蔵クロックの場合 392になる理論値416, 5.8%ずれ
 	}
-	USART1->CR1 |= USART_CR1_RXNEIE | USART_CR1_TE | USART_CR1_RE | USART_CR1_UE;
-//	USART1->CR1 |= USART_CR1_TE | USART_CR1_RE | USART_CR1_UE;
+	USART1->CR1 |= USART_CR1_TE | USART_CR1_RE | USART_CR1_UE;
 	
 	
 	/*
@@ -77,12 +110,10 @@ void Reset_Handler(void) {
 	GPIOA->AFRL |= (7 << (4 * 2)) | (7 << (4 * 3)); // PA2 and PA3 as AF7 == USART
 	GPIOA->OSPEEDR |= 3 << (2 * 2); // PA2 as 50Mhz
 	GPIOA->MODER |= (2 << (2 * 2)) | (2 << (2 * 3)); // PA2, PA3 as alternatefunction
-	USART2->BRR = 48000000 / (2 * 9600); // 48MHz, 9600bps
-//	USART2->CR1 |= USART_CR1_RXNEIE | USART_CR1_TE | USART_CR1_RE | USART_CR1_UE;
-	USART2->CR1 |= USART_CR1_UE;
-	USART2->CR1 |= USART_CR1_TE;
+	USART2->BRR = 48000000 / 115200; // 48MHz, 115200bps
+	USART2->CR1 |= USART_CR1_TE | USART_CR1_RE | USART_CR1_UE;
 	*/
-			
+	
 	int c = '0';
 	
 //	while (!(USART1->CR2 & USART_CR2_ABREN)); // ok
@@ -110,30 +141,26 @@ void Reset_Handler(void) {
 	for (;;) {
 		GPIOB->ODR = 1 << 1; // PB1 on
 		
-		// single buffer では、読み込む前にデータが来ると止まってしまう
+		// single buffer では、読み込む前に次のデータが来ると止まってしまう
 		if (USART1->ISR & USART_ISR_RXNE) {
 			c = (uint8)(USART1->RDR);
-//			if (c >= '0' && c <= '9')
-			//				wait = WAIT_CNT * (c - '0' + 1);
+			if (c >= '0' && c <= '9')
+				wait = WAIT_CNT * (c - '0' + 1);
 			putc('\n');
 			putn(c);
 			putn(USART1->BRR);
 			putc('\n');
-			
 		}
 		
 		// loop
 		while (!(USART1->ISR & USART_ISR_TXE)); // wait for sent
-		USART1->TDR = c; // 書き込みはできてそう、TXEがセットされる
-//		while (USART1->ISR & USART_ISR_TXE); // wait for sent
+		USART1->TDR = c;
 		
 //		while (!(USART2->ISR & USART_ISR_TXE)); // wait for sent
-//		USART2->TDR = c; // 書き込みはできてそう、TXEがセットされる
+//		USART2->TDR = c;
 		
 		// last
 //		while (!(USART1->ISR & USART_ISR_TC)); // wait for sent
-//		USART1->ICR |= USART_ICR_TCCF;
-//		USART1->CR1 |= USART_CR1_TCIE;
 		
 		if (c >= '9' || c < '0') {
 			c = '0';
