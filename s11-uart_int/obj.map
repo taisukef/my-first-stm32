@@ -1,0 +1,196 @@
+Archive member included to satisfy reference by file (symbol)
+
+/Users/fukuno/bin/gcc-arm-none-eabi-6-2017-q1-update/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/libgcc.a(_divsi3.o)
+                              main.o (__aeabi_idiv)
+/Users/fukuno/bin/gcc-arm-none-eabi-6-2017-q1-update/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/libgcc.a(_dvmd_tls.o)
+                              /Users/fukuno/bin/gcc-arm-none-eabi-6-2017-q1-update/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/libgcc.a(_divsi3.o) (__aeabi_idiv0)
+
+Allocating common symbols
+Common symbol       size              file
+
+uart_buf            0x4               main.o
+
+Discarded input sections
+
+ .text          0x0000000000000000        0x0 main.o
+ .data          0x0000000000000000        0x0 main.o
+ .bss           0x0000000000000000        0x0 main.o
+ .text.putc     0x0000000000000000        0x8 main.o
+ .data          0x0000000000000000        0x0 /Users/fukuno/bin/gcc-arm-none-eabi-6-2017-q1-update/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/libgcc.a(_divsi3.o)
+ .bss           0x0000000000000000        0x0 /Users/fukuno/bin/gcc-arm-none-eabi-6-2017-q1-update/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/libgcc.a(_divsi3.o)
+ .data          0x0000000000000000        0x0 /Users/fukuno/bin/gcc-arm-none-eabi-6-2017-q1-update/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/libgcc.a(_dvmd_tls.o)
+ .bss           0x0000000000000000        0x0 /Users/fukuno/bin/gcc-arm-none-eabi-6-2017-q1-update/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/libgcc.a(_dvmd_tls.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+FlashLoc         0x0000000008000000 0x0000000000008000 xr
+RamLoc           0x0000000020000000 0x0000000000001000 xrw
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD main.o
+START GROUP
+LOAD /Users/fukuno/bin/gcc-arm-none-eabi-6-2017-q1-update/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/libgcc.a
+LOAD /Users/fukuno/bin/gcc-arm-none-eabi-6-2017-q1-update/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc.a
+END GROUP
+                0x0000000008008000                __top_FlashLoc = 0x8008000
+                0x0000000020001000                __top_RamLoc = 0x20001000
+
+.text           0x0000000008000000      0x4ec
+ FILL mask 0xff
+                0x0000000008000000                __vectors_start__ = ABSOLUTE (.)
+ *(.isr_vector)
+ .isr_vector    0x0000000008000000       0xb0 main.o
+                0x0000000008000000                __Vectors
+                0x00000000080000b0                . = ALIGN (0x4)
+                0x00000000080000b0                __section_table_start = .
+                0x00000000080000b0                __data_section_table = .
+                0x00000000080000b0        0x4 LONG 0x80004ec LOADADDR (.data)
+                0x00000000080000b4        0x4 LONG 0x0 SIZEOF (.data)
+ *(.after_vectors*)
+ .after_vectors
+                0x00000000080000b8        0x2 main.o
+                0x00000000080000b8                TIM1_BRK_UP_TRG_COM_IRQHandler
+                0x00000000080000b8                HardFault_Handler
+                0x00000000080000b8                SysTick_Handler
+                0x00000000080000b8                PendSV_Handler
+                0x00000000080000b8                NMI_Handler
+                0x00000000080000b8                I2C1_IRQHandler
+                0x00000000080000b8                SPI1_IRQHandler
+                0x00000000080000b8                IntDefaultHandler
+                0x00000000080000b8                EXTI2_3_IRQHandler
+                0x00000000080000b8                ADC1_IRQHandler
+                0x00000000080000b8                TIM17_IRQHandler
+                0x00000000080000b8                RTC_IRQHandler
+                0x00000000080000b8                TIM16_IRQHandler
+                0x00000000080000b8                TIM3_IRQHandler
+                0x00000000080000b8                RCC_IRQHandler
+                0x00000000080000b8                EXTI4_15_IRQHandler
+                0x00000000080000b8                DMA1_Channel1_IRQHandler
+                0x00000000080000b8                TIM14_IRQHandler
+                0x00000000080000b8                DMA1_Channel4_5_IRQHandler
+                0x00000000080000b8                EXTI0_1_IRQHandler
+                0x00000000080000b8                SVC_Handler
+                0x00000000080000b8                WWDG_IRQHandler
+                0x00000000080000b8                DMA1_Channel2_3_IRQHandler
+                0x00000000080000b8                FLASH_IRQHandler
+                0x00000000080000b8                TIM1_CC_IRQHandler
+ *(.text*)
+ *fill*         0x00000000080000ba        0x2 ff
+ .text.changeClockTo48MHz
+                0x00000000080000bc       0x7c main.o
+                0x00000000080000bc                changeClockTo48MHz
+ .text.uart_get
+                0x0000000008000138       0x38 main.o
+                0x0000000008000138                uart_get
+ .text.uart_put
+                0x0000000008000170       0x14 main.o
+                0x0000000008000170                uart_put
+ .text.USART1_IRQHandler
+                0x0000000008000184       0x40 main.o
+                0x0000000008000184                USART1_IRQHandler
+ .text.putn     0x00000000080001c4       0x3c main.o
+                0x00000000080001c4                putn
+ .text.readline
+                0x0000000008000200       0x34 main.o
+                0x0000000008000200                readline
+ .text.Reset_Handler
+                0x0000000008000234       0xe0 main.o
+                0x0000000008000234                Reset_Handler
+ .text          0x0000000008000314      0x1d4 /Users/fukuno/bin/gcc-arm-none-eabi-6-2017-q1-update/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/libgcc.a(_divsi3.o)
+                0x0000000008000314                __aeabi_idiv
+                0x0000000008000314                __divsi3
+                0x00000000080004e0                __aeabi_idivmod
+ .text          0x00000000080004e8        0x4 /Users/fukuno/bin/gcc-arm-none-eabi-6-2017-q1-update/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/libgcc.a(_dvmd_tls.o)
+                0x00000000080004e8                __aeabi_ldiv0
+                0x00000000080004e8                __aeabi_idiv0
+ *(.rodata .rodata.*)
+                0x00000000080004ec                . = ALIGN (0x4)
+
+.glue_7         0x00000000080004ec        0x0
+ .glue_7        0x00000000080004ec        0x0 linker stubs
+
+.glue_7t        0x00000000080004ec        0x0
+ .glue_7t       0x00000000080004ec        0x0 linker stubs
+
+.vfp11_veneer   0x00000000080004ec        0x0
+ .vfp11_veneer  0x00000000080004ec        0x0 linker stubs
+
+.v4_bx          0x00000000080004ec        0x0
+ .v4_bx         0x00000000080004ec        0x0 linker stubs
+
+.iplt           0x00000000080004ec        0x0
+ .iplt          0x00000000080004ec        0x0 main.o
+
+.rel.dyn        0x00000000080004ec        0x0
+ .rel.iplt      0x00000000080004ec        0x0 main.o
+
+.ARM.extab
+ *(.ARM.extab* .gnu.linkonce.armextab.*)
+                0x00000000080004ec                __exidx_start = .
+
+.ARM.exidx
+ *(.ARM.exidx* .gnu.linkonce.armexidx.*)
+                0x00000000080004ec                __exidx_end = .
+                0x00000000080004ec                _etext = .
+
+.uninit_RESERVED
+                0x0000000020000000        0x0
+ *(.bss.$RESERVED*)
+                0x0000000020000000                . = ALIGN (0x4)
+                0x0000000020000000                _end_uninit_RESERVED = .
+
+.data           0x0000000020000000        0x0 load address 0x00000000080004ec
+ FILL mask 0xff
+                0x0000000020000000                _data = .
+ *(vtable)
+ *(.data*)
+ *(.ichigojam_ram)
+                0x0000000020000000                . = ALIGN (0x4)
+                0x0000000020000000                _edata = .
+
+.igot.plt       0x0000000020000000        0x0 load address 0x00000000080004ec
+ .igot.plt      0x0000000020000000        0x0 main.o
+
+.bss            0x0000000020000000        0x8 load address 0x00000000080004ec
+                0x0000000020000000                _bss = .
+ *(.bss*)
+ .bss.uart_read
+                0x0000000020000000        0x2 main.o
+                0x0000000020000000                uart_read
+ .bss.uart_write
+                0x0000000020000002        0x2 main.o
+                0x0000000020000002                uart_write
+ *(COMMON)
+ COMMON         0x0000000020000004        0x4 main.o
+                0x0000000020000004                uart_buf
+                0x0000000020000008                . = ALIGN (0x4)
+                0x0000000020000008                _ebss = .
+                [!provide]                        PROVIDE (end, .)
+
+.noinit         0x0000000020000008        0x0 load address 0x00000000080004ec
+                0x0000000020000008                _noinit = .
+ *(.noinit*)
+                0x0000000020000008                . = ALIGN (0x4)
+                0x0000000020000008                _end_noinit = .
+                [!provide]                        PROVIDE (_pvHeapStart, .)
+                0x0000000020001000                PROVIDE (_vStackTop, __top_RamLoc)
+OUTPUT(obj.axf elf32-littlearm)
+
+.comment        0x0000000000000000       0x7f
+ .comment       0x0000000000000000       0x7f main.o
+                                         0x80 (size before relaxing)
+
+.ARM.attributes
+                0x0000000000000000       0x31
+ .ARM.attributes
+                0x0000000000000000       0x31 main.o
+ .ARM.attributes
+                0x0000000000000031       0x1e /Users/fukuno/bin/gcc-arm-none-eabi-6-2017-q1-update/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/libgcc.a(_divsi3.o)
+ .ARM.attributes
+                0x000000000000004f       0x1e /Users/fukuno/bin/gcc-arm-none-eabi-6-2017-q1-update/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/libgcc.a(_dvmd_tls.o)
+
+.debug_frame    0x0000000000000000       0x20
+ .debug_frame   0x0000000000000000       0x20 /Users/fukuno/bin/gcc-arm-none-eabi-6-2017-q1-update/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/libgcc.a(_divsi3.o)

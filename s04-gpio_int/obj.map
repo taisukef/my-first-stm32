@@ -1,0 +1,150 @@
+
+Discarded input sections
+
+ .text          0x0000000000000000        0x0 main.o
+ .data          0x0000000000000000        0x0 main.o
+ .bss           0x0000000000000000        0x0 main.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+FlashLoc         0x0000000008000000 0x0000000000008000 xr
+RamLoc           0x0000000020000000 0x0000000000001800 xrw
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD main.o
+START GROUP
+LOAD /Users/fukuno/bin/gcc-arm-none-eabi-6-2017-q1-update/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/libgcc.a
+LOAD /Users/fukuno/bin/gcc-arm-none-eabi-6-2017-q1-update/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc.a
+END GROUP
+                0x0000000008008000                __top_FlashLoc = 0x8008000
+                0x0000000020001000                __top_RamLoc = 0x20001000
+
+.text           0x0000000008000000      0x1cc
+ FILL mask 0xff
+                0x0000000008000000                __vectors_start__ = ABSOLUTE (.)
+ *(.isr_vector)
+ .isr_vector    0x0000000008000000       0xb0 main.o
+                0x0000000008000000                __Vectors
+                0x00000000080000b0                . = ALIGN (0x4)
+                0x00000000080000b0                __section_table_start = .
+                0x00000000080000b0                __data_section_table = .
+                0x00000000080000b0        0x4 LONG 0x80001cc LOADADDR (.data)
+                0x00000000080000b4        0x4 LONG 0x0 SIZEOF (.data)
+ *(.after_vectors*)
+ .after_vectors
+                0x00000000080000b8        0x2 main.o
+                0x00000000080000b8                TIM1_BRK_UP_TRG_COM_IRQHandler
+                0x00000000080000b8                HardFault_Handler
+                0x00000000080000b8                SysTick_Handler
+                0x00000000080000b8                PendSV_Handler
+                0x00000000080000b8                NMI_Handler
+                0x00000000080000b8                I2C1_IRQHandler
+                0x00000000080000b8                SPI1_IRQHandler
+                0x00000000080000b8                IntDefaultHandler
+                0x00000000080000b8                EXTI2_3_IRQHandler
+                0x00000000080000b8                ADC1_IRQHandler
+                0x00000000080000b8                TIM17_IRQHandler
+                0x00000000080000b8                RTC_IRQHandler
+                0x00000000080000b8                TIM16_IRQHandler
+                0x00000000080000b8                TIM3_IRQHandler
+                0x00000000080000b8                RCC_IRQHandler
+                0x00000000080000b8                EXTI4_15_IRQHandler
+                0x00000000080000b8                DMA1_Channel1_IRQHandler
+                0x00000000080000b8                TIM14_IRQHandler
+                0x00000000080000b8                DMA1_Channel4_5_IRQHandler
+                0x00000000080000b8                SVC_Handler
+                0x00000000080000b8                WWDG_IRQHandler
+                0x00000000080000b8                DMA1_Channel2_3_IRQHandler
+                0x00000000080000b8                FLASH_IRQHandler
+                0x00000000080000b8                USART1_IRQHandler
+                0x00000000080000b8                TIM1_CC_IRQHandler
+ *(.text*)
+ *fill*         0x00000000080000ba        0x2 ff
+ .text.led_init
+                0x00000000080000bc       0x10 main.o
+                0x00000000080000bc                led_init
+ .text.Reset_Handler
+                0x00000000080000cc       0xa8 main.o
+                0x00000000080000cc                Reset_Handler
+ .text.led_blink
+                0x0000000008000174       0x3c main.o
+                0x0000000008000174                led_blink
+ .text.EXTI0_1_IRQHandler
+                0x00000000080001b0       0x1c main.o
+                0x00000000080001b0                EXTI0_1_IRQHandler
+ *(.rodata .rodata.*)
+                0x00000000080001cc                . = ALIGN (0x4)
+
+.glue_7         0x00000000080001cc        0x0
+ .glue_7        0x00000000080001cc        0x0 linker stubs
+
+.glue_7t        0x00000000080001cc        0x0
+ .glue_7t       0x00000000080001cc        0x0 linker stubs
+
+.vfp11_veneer   0x00000000080001cc        0x0
+ .vfp11_veneer  0x00000000080001cc        0x0 linker stubs
+
+.v4_bx          0x00000000080001cc        0x0
+ .v4_bx         0x00000000080001cc        0x0 linker stubs
+
+.iplt           0x00000000080001cc        0x0
+ .iplt          0x00000000080001cc        0x0 main.o
+
+.rel.dyn        0x00000000080001cc        0x0
+ .rel.iplt      0x00000000080001cc        0x0 main.o
+
+.ARM.extab
+ *(.ARM.extab* .gnu.linkonce.armextab.*)
+                0x00000000080001cc                __exidx_start = .
+
+.ARM.exidx
+ *(.ARM.exidx* .gnu.linkonce.armexidx.*)
+                0x00000000080001cc                __exidx_end = .
+                0x00000000080001cc                _etext = .
+
+.uninit_RESERVED
+                0x0000000020000000        0x0
+ *(.bss.$RESERVED*)
+                0x0000000020000000                . = ALIGN (0x4)
+                0x0000000020000000                _end_uninit_RESERVED = .
+
+.data           0x0000000020000000        0x0 load address 0x00000000080001cc
+ FILL mask 0xff
+                0x0000000020000000                _data = .
+ *(vtable)
+ *(.data*)
+ *(.ichigojam_ram)
+                0x0000000020000000                . = ALIGN (0x4)
+                0x0000000020000000                _edata = .
+
+.igot.plt       0x0000000020000000        0x0 load address 0x00000000080001cc
+ .igot.plt      0x0000000020000000        0x0 main.o
+
+.bss            0x0000000020000000        0x0 load address 0x00000000080001cc
+                0x0000000020000000                _bss = .
+ *(.bss*)
+ *(COMMON)
+                0x0000000020000000                . = ALIGN (0x4)
+                0x0000000020000000                _ebss = .
+                [!provide]                        PROVIDE (end, .)
+
+.noinit         0x0000000020000000        0x0 load address 0x00000000080001cc
+                0x0000000020000000                _noinit = .
+ *(.noinit*)
+                0x0000000020000000                . = ALIGN (0x4)
+                0x0000000020000000                _end_noinit = .
+                [!provide]                        PROVIDE (_pvHeapStart, .)
+                0x0000000020001000                PROVIDE (_vStackTop, __top_RamLoc)
+OUTPUT(obj.axf elf32-littlearm)
+
+.comment        0x0000000000000000       0x7f
+ .comment       0x0000000000000000       0x7f main.o
+                                         0x80 (size before relaxing)
+
+.ARM.attributes
+                0x0000000000000000       0x31
+ .ARM.attributes
+                0x0000000000000000       0x31 main.o
