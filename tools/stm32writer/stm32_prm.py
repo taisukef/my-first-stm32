@@ -3,7 +3,14 @@
 prm = {}
 
 # add
-prm[0x445]={
+prm[0x444]={ # STM32F030K6T6
+	"Device" : "Low-density",
+	"Flash erase unit" : "page",
+	"Flash page size" : 0x400, #1KB
+	"Flash start addr" : 0x08000000,
+	"Flash end addr"   : 0x08008000} #32KB
+
+prm[0x445]={ # STM32F042K6T6
 	"Device" : "Low-density",
 	"Flash erase unit" : "page",
 	"Flash page size" : 0x400, #1KB
@@ -94,6 +101,9 @@ sector=[
 ]
 
 def show_device_info(PID):
+	if not PID in prm:
+		print "Please add 0x%04x information to stm32_prm.py" % PID
+		raise Exception();
 	print "Device: %s (PID=0x%04x)" % (prm[PID]["Device"], PID)
 	print "    Flash erase unit: %s" % prm[PID]["Flash erase unit"]
 	if prm[PID]["Flash erase unit"] == "page":

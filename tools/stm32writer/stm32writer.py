@@ -14,7 +14,6 @@ try:
 	version = "20171231py"
 	print "stm32writer (version: " + version + ")"
 
-
 	# オプションの解析
 	parser = optparse.OptionParser()
 
@@ -113,6 +112,7 @@ try:
 	# Product IDを取得する
 	PID = stm32_cmd.Get_ID(ser)
 
+	print "Product ID: %4x" % PID
 	# Product IDに基づきデバイス情報を表示する
 	stm32_prm.show_device_info(PID)
 
