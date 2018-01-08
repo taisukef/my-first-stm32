@@ -45,7 +45,7 @@ prm[0x418]={
 	"Flash start addr" : 0x08000000,
 	"Flash end addr"   : 0x08040000}
 
-prm[0x420]={
+prm[0x420]={ # STM32F100RBT6 Flash128K, RAM8K
 	"Device" : "Medium-density value line",
 	"Flash erase unit" : "page",
 	"Flash page size" : 0x400,
